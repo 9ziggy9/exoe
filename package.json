@@ -1,0 +1,23 @@
+{
+  "name": "exoe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9ziggy9/exoe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/9ziggy9/exoe/issues"
+  },
+  "homepage": "https://github.com/9ziggy9/exoe#readme",
+  "dependencies": {
+    "typescript": "^5.0.4"
+  }
+}
