@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/9ziggy9/exoe#readme",
   "dependencies": {
+    "katex": "^0.16.7",
     "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.0",
+    "@types/node": "^20.1.7"
   }
 }

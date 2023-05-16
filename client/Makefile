@@ -14,6 +14,7 @@ endef
 
 TSC=./node_modules/.bin/tsc
 TFLAGS=--noImplicitAny --noImplicitReturns --noUnusedLocals --strict
+MODOPTS=--module es6  --target es2018 --esModuleInterop true
 PORT=1337
 BUILD_DIR=./build
 
@@ -32,11 +33,11 @@ run:
 
 main:
 	$(call print_in_color, $(GREEN), \nBUILDING MAIN CODE:\n)
-	$(TSC) $(TFLAGS) --outFile $(BUILD_DIR)/main.js ./main.ts
+	$(TSC) $(TFLAGS) $(MODOPTS) --outDir $(BUILD_DIR) ./main.ts
 
 editor:
 	$(call print_in_color, $(GREEN), \nBUILDING EDITOR CODE:\n)
-	$(TSC) $(TFLAGS) --outFile $(BUILD_DIR)/editor.js ./editor.ts
+	$(TSC) $(TFLAGS) $(MODOPTS) --outDir $(BUILD_DIR) ./editor.ts
 
 clean:
 	$(call print_in_color, $(YELLOW), \nCLEANING...\n)

@@ -1,8 +1,11 @@
+import katex from "katex";
+
 function handleEditorInput(editor: HTMLElement | null,
                            output: HTMLElement | null): void {
   if (!editor || !output) throw new Error("Null DOM input.")
   editor.addEventListener("input", (e) => {
     output.innerHTML = (e.target as HTMLInputElement).value;
+    console.log(katex);
   });
 }
 
