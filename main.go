@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"errors"
+	"net/http"
   "gorm.io/driver/postgres"
   "gorm.io/gorm"
 	"github.com/9ziggy9/go-starter/config"
@@ -64,6 +65,9 @@ func main() {
 	}
 
 	r := gin.Default()
+	r.Static("/client", "./client")
+	r.LoadHTMLGlob("./client/index.html")
+	client := r.Group("/") // Client side --> HTML/JS entry point
 	api := r.Group("/api")
 
 	// Configure authorization middleware
@@ -89,7 +93,15 @@ func main() {
 		})
 	})
 
-	// AUTH PROTECTED ROUTES
+	// CLIENT PROTECTED ROUTES
+	client.Use(authMiddleware.MiddlewareFunc())
+	{
+		client.GET("/hello", func(c *gin.Context) {
+			c.HTML(http.StatusOK, "index.html", nil)
+		})
+	}
+
+	// API PROTECTED ROUTES
 	api.GET("/refresh_token", authMiddleware.RefreshHandler)
 	api.Use(authMiddleware.MiddlewareFunc())
 	{
