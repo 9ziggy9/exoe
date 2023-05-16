@@ -102,7 +102,10 @@ header {
 #app-pane-left, #app-pane-right {
     border: 1px solid var(--my-dark-gray);
 }
-#app-pane-right { border-left: none; }
+#app-pane-right {
+    background-color: var(--my-light-white);
+    border-left: none;
+}
 #app-pane-left {
     background-color: blue;
     grid-area: 1 / 1 / 2 / 2;
@@ -119,11 +122,11 @@ header {
     border: none;
     width: 100%;
     height: 100%;
-    background-color: var(--my-light-white);
-    color: var(--my-black);
+    background-color: var(--my-blue);
+    color: var(--my-white);
 }
 
 textarea:focus {
     outline: none;
-    caret-color: var(--my-black);
+    caret-color: var(--my-white);
 }
