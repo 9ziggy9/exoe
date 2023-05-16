@@ -64,7 +64,7 @@ func GenerateAuth(
 			return false
 		},
 		Unauthorized: func(c *gin.Context, code int, msg string) {
-			c.JSON(code, gin.H{"code": code, "message": msg})
+			c.Redirect(http.StatusMovedPermanently, "/unauthorized")
 		},
 		// TokenLookup is a string in the form of "<source>:<name>" that is used
 			// to extract token from the request.

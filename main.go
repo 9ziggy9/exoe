@@ -66,7 +66,7 @@ func main() {
 
 	r := gin.Default()
 	r.Static("/client", "./client")
-	r.LoadHTMLGlob("./client/index.html")
+	r.LoadHTMLGlob("./client/static/*.html")
 	client := r.Group("/") // Client side --> HTML/JS entry point
 	api := r.Group("/api")
 
@@ -81,16 +81,18 @@ func main() {
 		os.Exit(1)
 	}
 
-	api.POST("/login", authMiddleware.LoginHandler)
-	api.GET("/logout", authMiddleware.LogoutHandler)
-
 	r.NoRoute(func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)
 		fmt.Printf("NoRoute claims: %#v\n", claims)
-		c.JSON(404, gin.H{
-			"code": 404,
-			"message": "Page not found",
-		})
+		c.HTML(http.StatusNotFound, "noexist.html", nil)
+	})
+
+	// CLIENT UNPROTECTED ROUTES
+	client.GET("/unauthorized", func(c *gin.Context) {
+		c.HTML(http.StatusUnauthorized, "unauthorized.html", nil)
+	})
+	client.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
 	// CLIENT PROTECTED ROUTES
@@ -100,6 +102,10 @@ func main() {
 			c.HTML(http.StatusOK, "index.html", nil)
 		})
 	}
+
+	// API UNPROTECTED ROUTES
+	api.POST("/login", authMiddleware.LoginHandler)
+	api.GET("/logout", authMiddleware.LogoutHandler)
 
 	// API PROTECTED ROUTES
 	api.GET("/refresh_token", authMiddleware.RefreshHandler)
