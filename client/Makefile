@@ -14,22 +14,28 @@ endef
 
 TSC=./node_modules/.bin/tsc
 TFLAGS=--noImplicitAny --noImplicitReturns --noUnusedLocals --strict
+PORT=1337
+TSSRC=./main.ts
+JSOUT=./main.js
 
-.PHONY: all run ts clean
+.PHONY: all run ts clean serve
 
 all: ts run clean
 
-run: ts
+serve: clean ts
+	python3 -m "http.server" $(PORT)
+
+run:
 	$(call print_in_color, $(GREEN), \nRUNNING COMPILED JS:)
 	$(call print_in_color, $(CYAN), \n----------------------\n\n)
-	@node ./main.js
+	@node $(JSOUT)
 	$(call print_in_color, $(CYAN), \n----------------------\n)
 
 ts:
 	$(call print_in_color, $(GREEN), \nBUILDING TS:\n)
-	$(TSC) $(TFLAGS) --outFile ./main.js ./hello.ts
+	$(TSC) $(TFLAGS) --outFile $(JSOUT) $(TSSRC)
 
 clean:
 	$(call print_in_color, $(YELLOW), \nCLEANING...\n)
-	rm ./main.js
+	rm -f $(JSOUT)
 	$(call print_in_color, $(GREEN), \nDONE.\n)
