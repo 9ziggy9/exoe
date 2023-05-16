@@ -4,31 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet"> 
-
     <title>{{ .Title }}</title>
     <link rel="stylesheet" href="./client/static/style.css">
   </head>
-  <header>
-    <ul class="nav-ul">
-      <li>
-        <div id="home">
-          <img class="exoe-logo" alt='' src='./client/static/exoelogo.svg'/>
-          <p>eXoE</p>
-        </div>
-      </li>
-      <li class="nav-option">profile</li>
-    </ul>
-  </header>
+  <header>{{ template "navbar" . }}</header>
   <body>
     <div class="content">
       {{ if eq .Page "home"}}
         {{ template "home" . }}
       {{ else if eq .Page "unauthorized"}}
         {{ template "unauthorized" . }}
+      {{ else if eq .Page "editor"}}
+        {{ template "editor" . }}
       {{ else }}
         {{ template "noexist" . }}
       {{end}}

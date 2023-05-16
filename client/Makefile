@@ -15,8 +15,7 @@ endef
 TSC=./node_modules/.bin/tsc
 TFLAGS=--noImplicitAny --noImplicitReturns --noUnusedLocals --strict
 PORT=1337
-TSSRC=./main.ts
-JSOUT=./main.js
+BUILD_DIR=./build
 
 .PHONY: all run ts clean serve
 
@@ -33,9 +32,13 @@ run:
 
 ts:
 	$(call print_in_color, $(GREEN), \nBUILDING TS:\n)
-	$(TSC) $(TFLAGS) --outFile $(JSOUT) $(TSSRC)
+	$(TSC) $(TFLAGS) --outFile $(BUILD_DIR)/main.js ./main.ts
+
+editor:
+	$(call print_in_color, $(GREEN), \nBUILDING EDITOR CODE:\n)
+	$(TSC) $(TFLAGS) --outFile $(BUILD_DIR)/editor.js ./editor.ts
 
 clean:
 	$(call print_in_color, $(YELLOW), \nCLEANING...\n)
-	rm -f $(JSOUT)
+	rm -rf $(BUILD_DIR)/*
 	$(call print_in_color, $(GREEN), \nDONE.\n)

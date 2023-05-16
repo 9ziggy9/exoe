@@ -66,7 +66,7 @@ func main() {
 
 	r := gin.Default()
 	r.Static("/client", "./client")
-	r.LoadHTMLGlob("./client/static/*.html")
+	r.LoadHTMLGlob("./client/views/*.html")
 
 	// LOAD TEMPLATES
 
@@ -110,8 +110,11 @@ func main() {
 	// CLIENT PROTECTED ROUTES
 	client.Use(authMiddleware.MiddlewareFunc())
 	{
-		client.GET("/hello", func(c *gin.Context) {
-			c.HTML(http.StatusOK, "index.html", nil)
+		client.GET("/editor", func(c *gin.Context) {
+			c.HTML(http.StatusOK, "index.html", gin.H{
+				"Title": "eXoE",
+				"Page": "editor",
+			})
 		})
 	}
 

@@ -2,3 +2,4 @@ node_modules/
 probe/
 .env
 node_modules/
+build/

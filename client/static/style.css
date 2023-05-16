@@ -71,7 +71,9 @@ header {
 }
 
 .nav-option {
-    margin: 0.75rem;
+    background-color: var(--my-light-gray);
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
 }
 
 .exoe-logo {
