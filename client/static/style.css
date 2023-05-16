@@ -25,7 +25,10 @@
     color: var(--my-orange);
 }
 
-body {
+body,html {
+    width:100%;
+    height:100%;
+    position:fixed;
     margin: 0;
     padding: 0;
     background-color: var(--my-white);
@@ -80,4 +83,47 @@ header {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+#content {
+    width:100%;
+    height:100%;
+}
+
+#app-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap:0;
+    grid-row-gap:0;
+    width:100%;
+    height:100%;
+}
+#app-pane-left, #app-pane-right {
+    border: 1px solid var(--my-dark-gray);
+}
+#app-pane-right { border-left: none; }
+#app-pane-left {
+    background-color: blue;
+    grid-area: 1 / 1 / 2 / 2;
+}
+#app-pane-right { grid-area: 1 / 2 / 2 / 3; }
+#app-pane-full {
+    z-index:2;
+    grid-area: 1 / 1 / 3 / 3;
+}
+
+#text-editor {
+    overflow: scroll;
+    box-sizing: border-box;
+    border: none;
+    width: 100%;
+    height: 100%;
+    background-color: var(--my-light-white);
+    color: var(--my-black);
+}
+
+textarea:focus {
+    outline: none;
+    caret-color: var(--my-black);
 }

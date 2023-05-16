@@ -17,9 +17,9 @@ TFLAGS=--noImplicitAny --noImplicitReturns --noUnusedLocals --strict
 PORT=1337
 BUILD_DIR=./build
 
-.PHONY: all run ts clean serve
+.PHONY: all run main clean serve editor
 
-all: ts run clean
+all: clean main editor
 
 serve: clean ts
 	python3 -m "http.server" $(PORT)
@@ -30,8 +30,8 @@ run:
 	@node $(JSOUT)
 	$(call print_in_color, $(CYAN), \n----------------------\n)
 
-ts:
-	$(call print_in_color, $(GREEN), \nBUILDING TS:\n)
+main:
+	$(call print_in_color, $(GREEN), \nBUILDING MAIN CODE:\n)
 	$(TSC) $(TFLAGS) --outFile $(BUILD_DIR)/main.js ./main.ts
 
 editor:

@@ -1,4 +1,13 @@
 {{define "editor"}}
-  <h1>HELLO, EDITOR!</h1>
-  <script type="module" src="./client/hello.js"></script>
+  <div id="app-container">
+    <div id="app-pane-left">
+      <textarea id="text-editor"></textarea>
+    </div>
+    <div id="app-pane-right">
+      world
+    </div>
+    <!-- <div id="app-pane-full"> -->
+    <!-- </div> -->
+  </div>
+  <script type="module" src="./client/build/editor.js"></script>
 {{end}}
