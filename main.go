@@ -67,6 +67,9 @@ func main() {
 	r := gin.Default()
 	r.Static("/client", "./client")
 	r.LoadHTMLGlob("./client/static/*.html")
+
+	// LOAD TEMPLATES
+
 	client := r.Group("/") // Client side --> HTML/JS entry point
 	api := r.Group("/api")
 
@@ -84,15 +87,24 @@ func main() {
 	r.NoRoute(func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)
 		fmt.Printf("NoRoute claims: %#v\n", claims)
-		c.HTML(http.StatusNotFound, "noexist.html", nil)
+		c.HTML(http.StatusNotFound, "index.html", gin.H{
+			"Title": "eXoE: Bad Route",
+			"Page": "noexist",
+		})
 	})
 
 	// CLIENT UNPROTECTED ROUTES
 	client.GET("/unauthorized", func(c *gin.Context) {
-		c.HTML(http.StatusUnauthorized, "unauthorized.html", nil)
+		c.HTML(http.StatusUnauthorized, "index.html", gin.H{
+			"Title": "eXoE: Unauthorized",
+			"Page": "unauthorized",
+		})
 	})
 	client.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"Title": "eXoE",
+			"Page": "home",
+		})
 	})
 
 	// CLIENT PROTECTED ROUTES

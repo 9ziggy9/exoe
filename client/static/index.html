@@ -9,11 +9,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet"> 
 
-    <title>eXoE</title>
+    <title>{{ .Title }}</title>
     <link rel="stylesheet" href="./client/static/style.css">
   </head>
+  <header>
+    HELLO, HEADER!
+  </header>
   <body>
-    <h1>HELLO, FREN!</h1>
+    <div class="content">
+      {{ if eq .Page "home"}}
+        {{ template "home" . }}
+      {{ else if eq .Page "unauthorized"}}
+        {{ template "unauthorized" . }}
+      {{ else }}
+        {{ template "noexist" . }}
+      {{end}}
+    </div>
     <script type="module" src="./client/main.js"></script>
   </body>
 </html>
