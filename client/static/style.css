@@ -38,13 +38,44 @@ body {
 }
 
 header {
-    margin: 0;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 0;
-    paddin: 0;
-    background-color: var(--my-yellow);
+    margin:0;
+    padding:0;
 }
 
+.nav-ul {
+    background-color: var(--my-lighter-gray);
+    height: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#home {
+    display: flex;
+    align-items: center;
+    background-color: var(--my-light-gray);
+    height: 100%;
+    color: var(--my-black);
+    font-weight: bold;
+    padding-right: 0.75rem;
+    font-size: 0.75rem;
+}
+
+.nav-ul li {
+    color: var(--my-white);
+    height: 100%;
+}
+
+.nav-option {
+    margin: 0.75rem;
+}
+
+.exoe-logo {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
