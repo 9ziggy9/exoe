@@ -66,7 +66,7 @@ header {
 .nav-ul {
     font-family:  "EB Garamond", serif;
     background-color: var(--my-blue);
-    height: 1.5rem;
+    height: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -96,6 +96,7 @@ header {
     background-color: var(--my-light-gray);
     padding-right: 0.75rem;
     padding-left: 0.75rem;
+    font-size: 0.75rem;
 }
 
 .exoe-logo {
@@ -112,7 +113,7 @@ header {
 #app-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
+    grid-template-rows: 32fr 1fr;
     grid-column-gap:0;
     grid-row-gap:0;
     width:100%;
@@ -127,9 +128,21 @@ header {
 }
 #app-pane-left {
     background-color: blue;
-    grid-area: 1 / 1 / 2 / 2;
+    grid-area: 1/1/2/2;
 }
-#app-pane-right { grid-area: 1 / 2 / 2 / 3; }
+#app-pane-right { grid-area: 1/2/2/3; }
+#app-footers {
+    grid-area: 2/1/3/3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap:0;
+    grid-row-gap:0;
+    width:100%;
+    height:100%;
+}
+#toolbar-editor { background-color: red; grid-area: 1/1/2/2; }
+#toolbar-preview { background-color: blue; grid-area: 1/2/2/3; }
 
 /* MODAL OVERLAY */
 .modal-overlay {
@@ -162,6 +175,7 @@ header {
     font-family: 'Source Code Pro', monospace;
     color: var(--my-white);
 }
+
 
 textarea:focus {
     outline: none;
