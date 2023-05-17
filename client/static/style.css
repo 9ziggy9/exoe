@@ -113,7 +113,7 @@ header {
 #app-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 32fr 1fr;
+    grid-template-rows: 1fr 1.35rem;
     grid-column-gap:0;
     grid-row-gap:0;
     width:100%;
@@ -138,11 +138,27 @@ header {
     grid-template-rows: 1fr;
     grid-column-gap:0;
     grid-row-gap:0;
-    width:100%;
-    height:100%;
+    padding:0;
 }
-#toolbar-editor { background-color: red; grid-area: 1/1/2/2; }
-#toolbar-preview { background-color: blue; grid-area: 1/2/2/3; }
+#toolbar-editor  {
+    background-color: var(--my-blue);
+    color: var(--my-white);
+    grid-area: 1/1/2/2;
+    display: flex;
+    align-items: center;
+}
+#toolbar-editor > button {
+    background-color: var(--my-black);
+    border: none;
+    color: var(--my-white);
+    font-size: 1rem;
+}
+#toolbar-editor > button:hover{
+    background-color: var(--my-green);
+    color: var(--my-black);
+    font-weight: bold;
+}
+#toolbar-preview { background-color: var(--my-dark-gray); grid-area: 1/2/2/3; }
 
 /* MODAL OVERLAY */
 .modal-overlay {

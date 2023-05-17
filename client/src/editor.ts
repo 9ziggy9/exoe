@@ -15,6 +15,15 @@ const listenSearchClick: (element: Element | null) => void
     el.addEventListener("click", (e) => e.stopPropagation());
   };
 
+function listenSymbolModalOpen(btn:    HTMLElement | null,
+                               modal:  Element     | null): void
+{
+    if (!btn || !modal) throw new Error("NULL\: check symbol search");
+    btn.addEventListener("click", () => {
+      modal.classList.toggle("hidden");
+    });
+}
+
 function handleEditorInput(editor: HTMLElement | null,
                            output: HTMLElement | null): void
 {
@@ -54,11 +63,13 @@ function main(): void {
   const editor    = document.getElementById("text-editor");
   const output    = document.getElementById("text-output");
   const modal     = document.querySelector(".modal-overlay");
-  const symSearch = document.querySelector(".modal-symbol-ctr")
+  const symBtn    = document.getElementById("modal-symbol-btn");
+  const symSearch = document.querySelector(".modal-symbol-ctr");
   handleEditorInput(editor, output);
   setExampleText(editor, output);
   listenModalClose(modal);
   listenSearchClick(symSearch);
+  listenSymbolModalOpen(symBtn, modal);
 }
 
 document.addEventListener("DOMContentLoaded", main);
