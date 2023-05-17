@@ -1,13 +1,14 @@
 {{define "editor"}}
   <div id="app-container">
     <div id="app-pane-left">
-      <textarea id="text-editor" class="col-1" spellcheck="false"></textarea>
+      <textarea id="text-editor" spellcheck="false"></textarea>
     </div>
-    <div id="app-pane-right" class="col-1">
-      <div id="text-output" class="col-1"></div>
+    <div id="app-pane-right">
+      <div id="text-output"></div>
     </div>
-    <!-- <div id="app-pane-full"> -->
-    <!-- </div> -->
+    <div class="modal-overlay">
+      <div class="modal-symbol-ctr"></div>
+    </div>
   </div>
   <script type="module" src="./client/bundle/editor.js"></script>
 {{end}}

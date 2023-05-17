@@ -7,7 +7,7 @@
     --my-white:      #eee8d5; --my-light-white:  #fdf6e3;
     --my-red:        #dc322f; --my-magenta:      #d33682;
     --my-violet:     #6c71c4; --my-orange:       #cb4b16;
-    --my-yellow:     #b58900;
+    --my-yellow:     #b58900; --my-modal:        #586e7588;
 }
 
 /* SOLARIZED */
@@ -19,7 +19,7 @@
     --my-white:      #eee8d5; --my-light-white:  #fdf6e3;
     --my-red:        #dc322f; --my-magenta:      #d33682;
     --my-violet:     #6c71c4; --my-orange:       #cb4b16;
-    --my-yellow:     #b58900;
+    --my-yellow:     #b58900; --my-modal:        #586e7588;
 }
 
 /* NORD */
@@ -31,7 +31,7 @@
     --my-white:      #e5e9f0; --my-light-white:  #f8f8f2;
     --my-red:        #bf616a; --my-magenta:      #b48ead;
     --my-violet:     #8fbcbb; --my-orange:       #ebcb8b;
-    --my-yellow:     #ebcb8b;
+    --my-yellow:     #ebcb8b; --my-modal:        #4c566a88;
 }
 
 ::-webkit-scrollbar {
@@ -130,9 +130,25 @@ header {
     grid-area: 1 / 1 / 2 / 2;
 }
 #app-pane-right { grid-area: 1 / 2 / 2 / 3; }
-#app-pane-full {
-    z-index:2;
+
+/* MODAL OVERLAY */
+.modal-overlay {
+    z-index: 2;
     grid-area: 1 / 1 / 3 / 3;
+    background-color: var(--my-modal);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.hidden { display: none; }
+
+/* MODAL COMPONENTS */
+.modal-symbol-ctr {
+    z-index: 3;
+    background-color: var(--my-white);
+    width: 60%;
+    height: 60%;
 }
 
 #text-editor {
