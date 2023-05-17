@@ -15,6 +15,7 @@ function handleEditorInput(editor: HTMLElement | null,
 
 function main(): void {
   console.log("Hello, editor!");
+  console.log(katex);
   const editor = document.getElementById("text-editor");
   const output = document.getElementById("text-output");
   handleEditorInput(editor, output);
