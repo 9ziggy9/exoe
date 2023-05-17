@@ -5,14 +5,11 @@ function handleEditorInput(editor: HTMLElement | null,
   if (!editor || !output) throw new Error("Null DOM input.")
   editor.addEventListener("input", (e) => {
     const input: string = (e.target as HTMLInputElement).value;
-    console.log(input);
-    const mathText = katex.renderToString(input, {
+    katex.render(input, output, {
       displayMode: true,
       throwOnError: false,
       output: "mathml",
     });
-    console.log(mathText);
-    output.innerHTML = mathText;
   });
 }
 
