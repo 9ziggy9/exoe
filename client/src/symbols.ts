@@ -1,4 +1,4 @@
-export const TEST = [
+export const symbolTable = [
   ["!","n!n!n!","n!"  ],
   ["\\!","a ⁣ba\\!bab","a\\!b"  ],
   ["#","y2\\def\\sqr#1{#1^2} \\sqr{y}y2","\\def\\sqr#1{#1^2} \\sqr{y}"  ],

@@ -1,4 +1,5 @@
 import katex from "katex";
+import { symbolTable } from "./symbols"
 
 function handleEditorInput(editor: HTMLElement | null,
                            output: HTMLElement | null): void {
@@ -16,13 +17,12 @@ function handleEditorInput(editor: HTMLElement | null,
 function setExampleText(
   edId:   HTMLElement | null,
   outId:  HTMLElement | null,
-  ipt:    string      | null = null,
+  ipt:    string      | null = null
 ) : void {
   if (!outId || !edId) throw new Error("Null DOM input.");
   // stoke's theorem as a default
   const txt = ipt ||
     "\\oint_{\\partial\\Sigma}\\omega\\,=\\,\\int_{\\Sigma}\\,\\,d\\omega";
-
   // render out
   katex.render(txt, outId, {
     displayMode: true,
@@ -35,6 +35,7 @@ function setExampleText(
 
 function main(): void {
   console.log("Hello, editor!");
+  console.log(symbolTable);
   const editor = document.getElementById("text-editor");
   const output = document.getElementById("text-output");
   handleEditorInput(editor, output);
