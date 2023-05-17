@@ -1,4 +1,5 @@
 import katex from "katex";
+import * as symbols from "../static/symbols.js";
 
 function handleEditorInput(editor: HTMLElement | null,
                            output: HTMLElement | null): void {
