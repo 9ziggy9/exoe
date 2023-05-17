@@ -13,11 +13,32 @@ function handleEditorInput(editor: HTMLElement | null,
   });
 }
 
+function setExampleText(
+  edId:   HTMLElement | null,
+  outId:  HTMLElement | null,
+  ipt:    string      | null = null,
+) : void {
+  if (!outId || !edId) throw new Error("Null DOM input.");
+  // stoke's theorem as a default
+  const txt = ipt ||
+    "\\oint_{\\partial\\Sigma}\\omega\\,=\\,\\int_{\\Sigma}\\,\\,d\\omega";
+
+  // render out
+  katex.render(txt, outId, {
+    displayMode: true,
+    throwOnError: false,
+    output: "html",
+  });
+  // render in
+  edId.innerText = txt;
+}
+
 function main(): void {
   console.log("Hello, editor!");
   const editor = document.getElementById("text-editor");
   const output = document.getElementById("text-output");
   handleEditorInput(editor, output);
+  setExampleText(editor, output);
 }
 
 document.addEventListener("DOMContentLoaded", main);

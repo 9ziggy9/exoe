@@ -1,20 +1,37 @@
 /* SOLARIZED */
 :root {
-    --my-black: #002b36;
-    --my-blue: #073642;
-    --my-light-blue: #268bd2;
-    --my-cyan: #2aa198;
-    --my-green: #859900;
-    --my-dark-gray: #586e75;
-    --my-light-gray: #657b83;
-    --my-lighter-gray: #839496;
-    --my-white: #eee8d5;
-    --my-light-white: #fdf6e3;
-    --my-red: #dc322f;
-    --my-magenta: #d33682;
-    --my-violet: #6c71c4;
-    --my-orange: #cb4b16;
-    --my-yellow: #b58900;
+    --my-black:      #002b36; --my-blue:         #073642;
+    --my-light-blue: #268bd2; --my-cyan:         #2aa198;
+    --my-green:      #859900; --my-dark-gray:    #586e75;
+    --my-light-gray: #657b83; --my-lighter-gray: #839496;
+    --my-white:      #eee8d5; --my-light-white:  #fdf6e3;
+    --my-red:        #dc322f; --my-magenta:      #d33682;
+    --my-violet:     #6c71c4; --my-orange:       #cb4b16;
+    --my-yellow:     #b58900;
+}
+
+/* SOLARIZED */
+.col-0 {
+    --my-black:      #002b36; --my-blue:         #073642;
+    --my-light-blue: #268bd2; --my-cyan:         #2aa198;
+    --my-green:      #859900; --my-dark-gray:    #586e75;
+    --my-light-gray: #657b83; --my-lighter-gray: #839496;
+    --my-white:      #eee8d5; --my-light-white:  #fdf6e3;
+    --my-red:        #dc322f; --my-magenta:      #d33682;
+    --my-violet:     #6c71c4; --my-orange:       #cb4b16;
+    --my-yellow:     #b58900;
+}
+
+/* NORD */
+.col-1 {
+    --my-black:      #2e3440; --my-blue:         #81a1c1;
+    --my-light-blue: #88c0d0; --my-cyan:         #8fbcbb;
+    --my-green:      #a3be8c; --my-dark-gray:    #4c566a;
+    --my-light-gray: #d8dee9; --my-lighter-gray: #eceff4;
+    --my-white:      #e5e9f0; --my-light-white:  #f8f8f2;
+    --my-red:        #bf616a; --my-magenta:      #b48ead;
+    --my-violet:     #8fbcbb; --my-orange:       #ebcb8b;
+    --my-yellow:     #ebcb8b;
 }
 
 ::-webkit-scrollbar {
@@ -56,7 +73,7 @@ header {
     list-style: none;
     padding: 0;
     margin: 0;
-    border:2px solid var(--my-black);
+    border:2px solid var(--my-blue);
 }
 
 #home {
@@ -71,7 +88,7 @@ header {
 }
 
 .nav-ul li {
-    color: var(--my-white);
+    color: var(--my-black);
     height: 100%;
 }
 
@@ -136,5 +153,7 @@ textarea:focus {
 }
 
 #text-output {
+    background-color: var(--my-light-white);
+    color: var(--my-black);
     padding: 0.75rem;
 }
