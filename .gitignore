@@ -3,3 +3,5 @@ probe/
 .env
 node_modules/
 build/
+dist/
+bundle/

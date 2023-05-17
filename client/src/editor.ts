@@ -1,4 +1,4 @@
-import katex from "katex";
+import * as katex from "katex";
 
 function handleEditorInput(editor: HTMLElement | null,
                            output: HTMLElement | null): void {

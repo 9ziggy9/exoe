@@ -13,14 +13,18 @@ define print_in_color
 endef
 
 TSC=./node_modules/.bin/tsc
-TFLAGS=--noImplicitAny --noImplicitReturns --noUnusedLocals --strict
-MODOPTS=--module es6  --target es2018 --esModuleInterop true
+TFLAGS=--noImplicitAny --noImplicitReturns --noUnusedLocals --strict true
+MODOPTS=--module es2015  --target es5 --esModuleInterop true
 PORT=1337
-BUILD_DIR=./build
+BUILD_DIR=./dist
+SRC_DIR=./src
+WPACK=./node_modules/.bin/webpack
+WPFLAGS=--progress --mode development
+WPACK_DIR=./bundle
 
 .PHONY: all run main clean serve editor
 
-all: clean main editor
+all: clean main editor bundle
 
 serve: clean ts
 	python3 -m "http.server" $(PORT)
@@ -33,13 +37,18 @@ run:
 
 main:
 	$(call print_in_color, $(GREEN), \nBUILDING MAIN CODE:\n)
-	$(TSC) $(TFLAGS) $(MODOPTS) --outDir $(BUILD_DIR) ./main.ts
+	$(TSC) $(TFLAGS) $(MODOPTS) --outDir $(BUILD_DIR) $(SRC_DIR)/main.ts
 
 editor:
 	$(call print_in_color, $(GREEN), \nBUILDING EDITOR CODE:\n)
-	$(TSC) $(TFLAGS) $(MODOPTS) --outDir $(BUILD_DIR) ./editor.ts
+	$(TSC) $(TFLAGS) $(MODOPTS) --outDir $(BUILD_DIR) $(SRC_DIR)/editor.ts
+
+bundle: main editor
+	$(call print_in_color, $(GREEN), \nBUNDLING WEBPACKS:\n)
+	$(WPACK) $(WPFLAGS) ./dist/editor.js -o $(WPACK_DIR) \
+		--output-filename "editor.js"
 
 clean:
 	$(call print_in_color, $(YELLOW), \nCLEANING...\n)
-	rm -rf $(BUILD_DIR)/*
+	rm -rf $(BUILD_DIR) $(WPACK_DIR)
 	$(call print_in_color, $(GREEN), \nDONE.\n)
