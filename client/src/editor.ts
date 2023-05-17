@@ -1,5 +1,4 @@
 import katex from "katex";
-import { symbolTable } from "./symbols"
 
 const listenModalClose: (element: Element | null) => void
   = (el) => {
@@ -19,8 +18,12 @@ function listenSymbolModalOpen(btn:    HTMLElement | null,
                                modal:  Element     | null): void
 {
     if (!btn || !modal) throw new Error("NULL\: check symbol search");
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       modal.classList.toggle("hidden");
+      // HARDCODED, PLEASE FIX ASAP
+      const res = await fetch("http://localhost:9001/api/symbols-table");
+      const data = await res.json();
+      console.log(data);
     });
 }
 
@@ -58,8 +61,6 @@ function setExampleText(
 }
 
 function main(): void {
-  console.log("Hello, editor!");
-  console.log(symbolTable);
   const editor    = document.getElementById("text-editor");
   const output    = document.getElementById("text-output");
   const modal     = document.querySelector(".modal-overlay");

@@ -11,6 +11,7 @@ import (
 	"github.com/9ziggy9/go-starter/schema"
 	"github.com/9ziggy9/go-starter/seeders"
 	"github.com/9ziggy9/go-starter/auth"
+	"github.com/9ziggy9/go-starter/symbols"
 	"github.com/gin-gonic/gin"
 	jwt "github.com/appleboy/gin-jwt/v2"
 )
@@ -121,6 +122,10 @@ func main() {
 	// API UNPROTECTED ROUTES
 	api.POST("/login", authMiddleware.LoginHandler)
 	api.GET("/logout", authMiddleware.LogoutHandler)
+	api.GET("/symbols-table", func(c *gin.Context) {
+		c.JSON(http.StatusOK, symbols.Table)
+	})
+
 
 	// API PROTECTED ROUTES
 	api.GET("/refresh_token", authMiddleware.RefreshHandler)
@@ -128,7 +133,7 @@ func main() {
 	{
 		api.GET("/", func(c *gin.Context) {
 			claims := jwt.ExtractClaims(c)
-			c.JSON(200, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"userID": claims["id"],
 				"text": "Hello, World!",
 			})
