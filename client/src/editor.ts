@@ -1,11 +1,18 @@
-import * as katex from "katex";
+import katex from "katex";
 
 function handleEditorInput(editor: HTMLElement | null,
                            output: HTMLElement | null): void {
   if (!editor || !output) throw new Error("Null DOM input.")
   editor.addEventListener("input", (e) => {
-    output.innerHTML = (e.target as HTMLInputElement).value;
-    console.log(katex);
+    const input: string = (e.target as HTMLInputElement).value;
+    console.log(input);
+    const mathText = katex.renderToString(input, {
+      displayMode: true,
+      throwOnError: false,
+      output: "mathml",
+    });
+    console.log(mathText);
+    output.innerHTML = mathText;
   });
 }
 

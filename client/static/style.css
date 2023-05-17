@@ -33,7 +33,6 @@ body,html {
     padding: 0;
     background-color: var(--my-white);
     color: var(--my-black);
-    font-family:  "EB Garamond", serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,6 +46,7 @@ header {
 }
 
 .nav-ul {
+    font-family:  "EB Garamond", serif;
     background-color: var(--my-lighter-gray);
     height: 1.5rem;
     display: flex;
@@ -123,10 +123,20 @@ header {
     width: 100%;
     height: 100%;
     background-color: var(--my-blue);
+    font-family:  "EB Garamond", serif;
     color: var(--my-white);
 }
 
 textarea:focus {
     outline: none;
     caret-color: var(--my-white);
+}
+
+#text-output {
+    padding: 0.75rem;
+}
+
+.katex {
+    font-size: 4rem;
+    font-family:  "EB Garamond", serif;
 }

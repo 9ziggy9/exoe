@@ -22,12 +22,9 @@ WPACK=./node_modules/.bin/webpack
 WPFLAGS=--progress --mode development
 WPACK_DIR=./bundle
 
-.PHONY: all run main clean serve editor
+.PHONY: all run main editor clean stats
 
 all: clean main editor bundle
-
-serve: clean ts
-	python3 -m "http.server" $(PORT)
 
 run:
 	$(call print_in_color, $(GREEN), \nRUNNING COMPILED JS:)
@@ -47,6 +44,10 @@ bundle: main editor
 	$(call print_in_color, $(GREEN), \nBUNDLING WEBPACKS:\n)
 	$(WPACK) $(WPFLAGS) ./dist/editor.js -o $(WPACK_DIR) \
 		--output-filename "editor.js"
+
+stats:
+	$(call print_in_color, $(YELLOW), \nCURRENT PROJECT SIZE BREAKDOWNS:\n)
+	@du -h --exclude=node_modules | sort -rh
 
 clean:
 	$(call print_in_color, $(YELLOW), \nCLEANING...\n)
