@@ -1,7 +1,7 @@
 {{define "editor"}}
   <div id="app-container">
     <div id="app-pane-left">
-      <textarea id="text-editor"></textarea>
+      <textarea id="text-editor" spellcheck="false"></textarea>
     </div>
     <div id="app-pane-right">
       <div id="text-output"></div>
@@ -9,6 +9,5 @@
     <!-- <div id="app-pane-full"> -->
     <!-- </div> -->
   </div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.css" integrity="sha384-YiVwk+MBV52+yIvvplLwDxm3iGDI7dYb731lqsN9ASGBpIpJ/dte35lBIuR5oGFU" crossorigin="anonymous">
   <script type="module" src="./client/bundle/editor.js"></script>
 {{end}}
