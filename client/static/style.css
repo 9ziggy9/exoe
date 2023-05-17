@@ -22,7 +22,8 @@
 }
 
 ::selection {
-    color: var(--my-orange);
+    background-color: var(--my-black);
+    color: var(--my-yellow);
 }
 
 body,html {
