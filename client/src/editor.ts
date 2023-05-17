@@ -8,7 +8,7 @@ function handleEditorInput(editor: HTMLElement | null,
     katex.render(input, output, {
       displayMode: true,
       throwOnError: false,
-      output: "mathml",
+      output: "html",
     });
   });
 }
