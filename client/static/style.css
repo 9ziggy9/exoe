@@ -220,7 +220,15 @@ textarea:focus {
     grid-column-gap:0;
     grid-row-gap:0;
     overflow:hidden;
+    animation-name: anim-symbol-show;
+    animation-duration: 0.2s;
 }
+
+@keyframes anim-symbol-show {
+    from {transform: translate(-75%, 75%) scale(0.025);}
+    to {transform: translateX(0%, 0%) scale(1);}
+}
+
 
 #search-container {
     grid-area: 1/2/2/4;
