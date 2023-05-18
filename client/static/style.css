@@ -126,12 +126,12 @@ header {
 #app-pane-right {
     background-color: var(--my-light-white);
     border-left: none;
+    grid-area: 1/2/2/3;
 }
 #app-pane-left {
     background-color: blue;
     grid-area: 1/1/2/2;
 }
-#app-pane-right { grid-area: 1/2/2/3; }
 #app-footers {
     grid-area: 2/1/3/3;
     display: grid;
@@ -140,10 +140,37 @@ header {
     grid-column-gap:0;
     grid-row-gap:0;
     padding:0;
-    min-height:100%;
 }
-#toolbar-preview {
+
+#text-editor {
+    overflow: scroll;
+    margin:0;
+    box-sizing: border-box;
+    padding:0.75rem;
+    border: none;
+    min-width: 100%;
+    height: 100%;
     background-color: var(--my-dark-gray);
+    font-family: 'Source Code Pro', monospace;
+    color: var(--my-white);
+}
+
+
+textarea:focus {
+    outline: none;
+    caret-color: var(--my-white);
+}
+
+#text-output {
+    overflow: scroll;
+    background-color: var(--my-light-white);
+    color: var(--my-black);
+    padding: 0.75rem;
+    min-width:50%;
+}
+
+#toolbar-preview {
+    background-color: var(--my-yellow);
     grid-area: 1/2/2/3;
 }
 #toolbar-editor  {
@@ -180,67 +207,48 @@ header {
 
 /* MODAL COMPONENTS */
 .modal-symbol-ctr {
+    position:absolute;
     z-index: 3;
     margin: 0;
     padding: 0;
     background-color: var(--my-white);
-    background-color: pink;
     min-width: 60%;
-    min-height: 60%;
+    max-height: 50%;
     display: grid;
-    grid-template-columns: 1fr 1f 5fr;
+    grid-template-columns: 2fr 1fr;
     grid-template-rows: 1.25fr 16fr 1fr;
     grid-column-gap:0;
     grid-row-gap:0;
+    overflow:hidden;
 }
 
 #search-container {
-    grid-area: 1/1/2/4;
+    grid-area: 1/2/2/4;
+    width: 100%;
     background-color: red;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-#symbol-table {
+#table-container {
+    overflow-y: scroll;
     grid-area: 2/1/3/2;
+    width: 100%;
     background-color: green;
 }
+
+#symbol-table {width: 100%;}
+
+#symbol-table tr {background-color: yellow;}
 
 #search-preview {
     grid-area: 2/2/3/4;
     background-color: blue;
 }
 
-
 #symbol-footer {
     grid-area: 3/1/3/4;
     background-color: purple;
 }
 
-#text-editor {
-    overflow: scroll;
-    margin:0;
-    box-sizing: border-box;
-    padding:0.75rem;
-    border: none;
-    min-width: 100%;
-    height: 100%;
-    background-color: var(--my-dark-gray);
-    font-family: 'Source Code Pro', monospace;
-    color: var(--my-white);
-}
-
-
-textarea:focus {
-    outline: none;
-    caret-color: var(--my-white);
-}
-
-#text-output {
-    overflow: scroll;
-    background-color: var(--my-light-white);
-    color: var(--my-black);
-    padding: 0.75rem;
-    min-width:50%;
-}
