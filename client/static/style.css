@@ -271,7 +271,7 @@ textarea:focus {
 #symbol-table tr {font-size: 0.5rem; background-color: var(--my-lighter-gray);}
 #symbol-table td {min-width: 50%; font-family: 'Source Code Pro', monospace;}
 #symbol-table tr:nth-child(odd) {background-color: var(--my-dark-gray);}
-#symbol-table tr:hover {background-color: var(--my-green);}
+#symbol-table tr:hover { background-color: var(--my-green); }
 
 #search-preview {
     grid-area: 2/2/3/4;

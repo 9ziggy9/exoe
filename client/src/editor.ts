@@ -23,10 +23,9 @@ const collectSymbols: (t: SymbolTable, start: number, n: number) => SymbolTable
   = (t, start, n) => t ? t.slice(start, start + n) : null;
 
 // TODO: Need some type of CSS ID flag on hover to initiate preview.
-function renderTeXPreview(p: HTMLElement | null,
-                          sym: string, ex: string): void {
-  if (!p) throw new Error("NULL\: failure in renderTeXPreview");
-  katex.render(ex.length ? ex : sym, p, {
+function renderTeXPreview(p: HTMLElement | null, tex: string | null): void {
+  if (!p || !tex) throw new Error("NULL\: failure in renderTeXPreview");
+  katex.render(tex, p, {
     displayMode: true,
     throwOnError: false,
     output: "html",
@@ -52,11 +51,14 @@ function renderEntries(t: SymbolTable): void {
     exData.textContent  = ex.length ? ex : sym;
     newRow.appendChild(symData);
     newRow.appendChild(exData);
+
+    /* Pagination should make this okay, but many event listeners
+       could potentially become problematic. */
+    newRow.addEventListener("mouseover",
+                        () => renderTeXPreview(preview, exData.textContent));
+
     tBody.appendChild(newRow);
   }
-  // TODO: TESTING PURPOSES ONLY, as mentioned above, this should be correlated
-  // with hover of given help rows.
-  renderTeXPreview(preview, "SHOULD NOT SEE", "\\oint_{\\partial \\Sigma}");
 }
 
 /* BEGIN LISTENERS */
