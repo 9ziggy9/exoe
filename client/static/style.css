@@ -287,7 +287,7 @@ textarea:focus {
     color: var(--my-cyan);
 }
 
-#search-preview h2 {margin: 0;}
+#search-preview h2 { margin: 0; }
 
 #tex-preview {
     border: 2px solid var(--my-lighter-gray);
