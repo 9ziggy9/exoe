@@ -218,7 +218,7 @@ textarea:focus {
     grid-row-gap:0;
     overflow:hidden;
     animation-name: anim-symbol-show;
-    animation-duration: 0.2s;
+    animation-duration: 0.3s;
 }
 
 @keyframes anim-symbol-show {
@@ -268,8 +268,8 @@ textarea:focus {
 }
 
 #symbol-table {width: 100%;}
-#symbol-table tr {background-color: var(--my-lighter-gray);}
-#symbol-table td {font-family: 'Source Code Pro', monospace;}
+#symbol-table tr {font-size: 0.5rem; background-color: var(--my-lighter-gray);}
+#symbol-table td {min-width: 50%; font-family: 'Source Code Pro', monospace;}
 #symbol-table tr:nth-child(odd) {background-color: var(--my-dark-gray);}
 #symbol-table tr:hover {background-color: var(--my-green);}
 

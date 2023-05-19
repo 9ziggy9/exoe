@@ -35,8 +35,13 @@ function renderTeXPreview(p: HTMLElement | null,
 
 function renderEntries(t: SymbolTable): void {
   console.assert(t !== null, "Why is session symbolTable empty?");
+
+  /* I don't like that we now have DOM queries outside of main.
+     I think that perhaps the set of element IDs that we need should be
+     obtained in main() entry point, and then held in session interface. */
   const tBody   = document.getElementById("sym-table-entry");
   const preview = document.getElementById("tex-preview");
+
   if (!preview || !tBody) throw new Error("NULL\: check renderSymbols()");
   if (!t) throw new Error("NULL\: session SymbolTable has not been read.");
   for (let [sym, ex] of t) {
@@ -44,7 +49,7 @@ function renderEntries(t: SymbolTable): void {
     const symData = document.createElement("td");
     const exData  = document.createElement("td");
     symData.textContent = sym;
-    exData.textContent  = ex;
+    exData.textContent  = ex.length ? ex : sym;
     newRow.appendChild(symData);
     newRow.appendChild(exData);
     tBody.appendChild(newRow);
@@ -68,7 +73,7 @@ function listenSymbolModalOpen(btn:    HTMLElement | null,
         const res = await fetch("http://localhost:9001/api/symbols-table");
         const data: StaticArray<string, 3> = await res.json();
         s.symbolTable = cleanSymbols(data);
-        s.symbolTable = collectSymbols(s.symbolTable, 374, 11);
+        s.symbolTable = collectSymbols(s.symbolTable, 374, 25);
         console.assert(s.symbolTable !== null, "Failed to update session.");
       }
       renderEntries(s.symbolTable);
