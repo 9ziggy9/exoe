@@ -1,5 +1,13 @@
 import katex from "katex";
 
+type StaticArray<T, L extends number> = [T, ...T[]] & {length: L};
+type SymbolEntry = StaticArray<string, 2>;
+type SymbolTable = SymbolEntry[] | null;
+
+interface Session {
+  symbolTable: SymbolTable;
+};
+
 const listenModalClose: (element: Element | null) => void
   = (el) => {
     if (!el) throw new Error("Overlay node is NULL");
@@ -14,16 +22,30 @@ const listenSearchClick: (element: Element | null) => void
     el.addEventListener("click", (e) => e.stopPropagation());
   };
 
+// TODO: Should push this to JSON file eventually.
+
+const verbotenSymbol: (cmt: string, ex: string) => boolean = (cmt, ex) =>
+     cmt === "Not supported"
+  || ex  === "Deprecated"
+  || ex.startsWith("Issue");
+
+const collectSymbols: (d: StaticArray<string, 3>) => SymbolTable
+  = (d) => d.filter(([sym, cmt, ex]) => !verbotenSymbol(cmt, ex))
+            .map(([sym, cmt, ex]) => [sym,ex]);
+
+// END TODO
+
 function listenSymbolModalOpen(btn:    HTMLElement | null,
                                modal:  Element     | null): void
 {
     if (!btn || !modal) throw new Error("NULL\: check symbol search");
     btn.addEventListener("click", async () => {
       modal.classList.toggle("hidden");
-      // HARDCODED, PLEASE FIX ASAP
+      // TODO: HARDCODED, PLEASE FIX ASAP
       const res = await fetch("http://localhost:9001/api/symbols-table");
-      const data = await res.json();
-      console.log(data);
+      const data: StaticArray<string, 3> = await res.json();
+      const syms = collectSymbols(data);
+      console.log(syms);
     });
 }
 
@@ -71,19 +93,19 @@ function setSearchPreviewText(winId: HTMLElement | null): void {
   });
 }
 
-
 function main(): void {
+  const session: Session = {symbolTable: null,};
   const editor    = document.getElementById("text-editor");
   const output    = document.getElementById("text-output");
   const modal     = document.querySelector(".modal-overlay");
   const symBtn    = document.getElementById("modal-symbol-btn");
-  const symSearch = document.querySelector(".modal-symbol-ctr");
+  const searchSym = document.querySelector(".modal-symbol-ctr");
   const searchPrv = document.getElementById("tex-preview");
   handleEditorInput(editor, output);
   setExampleText(editor, output);
   setSearchPreviewText(searchPrv);
   listenModalClose(modal);
-  listenSearchClick(symSearch);
+  listenSearchClick(searchSym);
   listenSymbolModalOpen(symBtn, modal);
 }
 

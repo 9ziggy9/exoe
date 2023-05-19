@@ -13,9 +13,10 @@ define print_in_color
 endef
 
 TSC=./node_modules/.bin/tsc
-TFLAGS=--noImplicitAny --noImplicitReturns --noUnusedLocals \
-			 --strict true
-MODOPTS=--module es2015  --target es5 --esModuleInterop true \
+
+# add --noUnusedLocals in production
+TFLAGS=--noImplicitAny --noImplicitReturns --strict true
+MODOPTS=--module es2015  --target es6 --esModuleInterop true \
 				--moduleResolution nodenext \
 				--resolveJsonModule true
 PORT=1337
