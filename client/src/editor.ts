@@ -23,36 +23,42 @@ const listenSearchClick: (element: Element | null) => void
   };
 
 // TODO: Should push this to JSON file eventually.
-
 const verbotenSymbol: (cmt: string, ex: string) => boolean = (cmt, ex) =>
      cmt === "Not supported"
   || ex  === "Deprecated"
   || ex.startsWith("Issue");
 
-const collectSymbols: (d: StaticArray<string, 3>) => SymbolTable
+const cleanSymbols: (d: StaticArray<string, 3>) => SymbolTable
   = (d) => d.filter(([sym, cmt, ex]) => !verbotenSymbol(cmt, ex))
             .map(([sym, cmt, ex]) => [sym,ex]);
-
 // END TODO
+const collectSymbols: (t: SymbolTable, start: number, n: number) => SymbolTable
+  = (t, start, n) => t ? t.slice(start, start + n) : null;
 
 function listenSymbolModalOpen(btn:    HTMLElement | null,
-                               modal:  Element     | null): void
+                               modal:  Element     | null,
+                               s:      Session): void
 {
     if (!btn || !modal) throw new Error("NULL\: check symbol search");
     btn.addEventListener("click", async () => {
       modal.classList.toggle("hidden");
-      // TODO: HARDCODED, PLEASE FIX ASAP
-      const res = await fetch("http://localhost:9001/api/symbols-table");
-      const data: StaticArray<string, 3> = await res.json();
-      const syms = collectSymbols(data);
-      console.log(syms);
+      if (!s.symbolTable) {
+        console.log("Fetching symbol table...");
+        // TODO: HARDCODED BACKEND URI, PLEASE FIX ASAP
+        const res = await fetch("http://localhost:9001/api/symbols-table");
+        const data: StaticArray<string, 3> = await res.json();
+        s.symbolTable = cleanSymbols(data);
+        console.assert(s.symbolTable !== null, "Failed to update session.");
+      }
+      s.symbolTable = collectSymbols(s.symbolTable, 374, 11);
+      console.log(s);
     });
 }
 
 function handleEditorInput(editor: HTMLElement | null,
                            output: HTMLElement | null): void
 {
-  if (!editor || !output) throw new Error("Null DOM input.")
+  if (!editor || !output) throw new Error("NULL DOM input.")
   editor.addEventListener("input", (e) => {
     const input: string = (e.target as HTMLInputElement).value;
     katex.render(input, output, {
@@ -68,7 +74,7 @@ function setExampleText(
   outId:  HTMLElement | null,
   ipt:    string      | null = null
 ) : void {
-  if (!outId || !edId) throw new Error("Null DOM input.");
+  if (!outId || !edId) throw new Error("NULL DOM input.");
   // stoke's theorem as a default
   const txt = ipt ||
     "\\oint_{\\partial\\Sigma}\\omega\\,=\\,\\int_{\\Sigma}\\,\\,d\\omega";
@@ -106,7 +112,7 @@ function main(): void {
   setSearchPreviewText(searchPrv);
   listenModalClose(modal);
   listenSearchClick(searchSym);
-  listenSymbolModalOpen(symBtn, modal);
+  listenSymbolModalOpen(symBtn, modal, session);
 }
 
 document.addEventListener("DOMContentLoaded", main);
