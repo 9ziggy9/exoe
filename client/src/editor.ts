@@ -83,15 +83,20 @@ function listenSymbolModalOpen(btn:    HTMLElement | null,
       modal.classList.toggle("hidden");
       if (!s.symbolTable) {
         console.log("Fetching symbol table...");
+
         // TODO: HARDCODED BACKEND URI, PLEASE FIX ASAP
         const res = await fetch("http://localhost:9001/api/symbols-table");
         const data: StaticArray<string, 3> = await res.json();
         s.symbolTable = cleanSymbols(data);
-        s.symbolTable = collectSymbols(s.symbolTable, 0, 997);
+
+        // TODO: PAGINATION--trying to load all symbols at once
+        // causes an enormous CSS recalculation which significantly
+        // slows down the application.
+        s.symbolTable = collectSymbols(s.symbolTable, 25, 25);
+
         console.assert(s.symbolTable !== null, "Failed to update session.");
       }
       renderEntries(s.symbolTable);
-      console.log(s);
     });
 }
 
