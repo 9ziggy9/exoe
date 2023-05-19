@@ -1,6 +1,6 @@
 {{define "symbol-table"}}
 <div id="search-container">
-  hello world
+  <input id="search-input" type="text" placeholder="search: e.g. \int">
 </div>
 <div id="table-headers">
     <p>symbol code</p>
@@ -60,6 +60,9 @@
  </tbody>
 </table>
 </div>
-<div id="search-preview">HELLO WORLD</div>
-<div id="symbol-footer">HELLO WORLD</div>
+<div id="search-preview">
+  <h2>preview: </h2>
+  <div id="tex-preview"></div>
+</div>
+<div id="symbol-footer"></div> <!-- size adjustible in modal-symbol-ctr -->
 {{end}}
