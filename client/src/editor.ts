@@ -6,6 +6,7 @@ type SymbolTable = SymbolEntry[] | null;
 
 interface Session {
   symbolTable: SymbolTable;
+  previewTableBuffer: SymbolTable;
 };
 
 // TODO: Should push this to JSON file eventually.
@@ -92,11 +93,11 @@ function listenSymbolModalOpen(btn:    HTMLElement | null,
         // TODO: PAGINATION--trying to load all symbols at once
         // causes an enormous CSS recalculation which significantly
         // slows down the application.
-        s.symbolTable = collectSymbols(s.symbolTable, 25, 25);
+        s.previewTableBuffer = collectSymbols(s.symbolTable, 25, 25);
 
         console.assert(s.symbolTable !== null, "Failed to update session.");
       }
-      renderEntries(s.symbolTable);
+      renderEntries(s.previewTableBuffer);
     });
 }
 
@@ -161,7 +162,7 @@ function setSearchPreviewText(winId: HTMLElement | null): void {
 }
 
 function main(): void {
-  const session: Session = {symbolTable: null,};
+  const session: Session = {symbolTable: null, previewTableBuffer: null};
   const editor    = document.getElementById("text-editor");
   const output    = document.getElementById("text-output");
   const modal     = document.querySelector(".modal-overlay");
