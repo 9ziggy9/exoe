@@ -60,14 +60,28 @@ function setExampleText(
   edId.innerText = txt;
 }
 
+function setSearchPreviewText(winId: HTMLElement | null): void {
+  if (!winId) throw new Error("winId reading null!");
+  katex.render(
+    "\\oint_{\\partial \\Sigma}",
+    winId, {
+    displayMode: true,
+    throwOnError: false,
+    output: "html",
+  });
+}
+
+
 function main(): void {
   const editor    = document.getElementById("text-editor");
   const output    = document.getElementById("text-output");
   const modal     = document.querySelector(".modal-overlay");
   const symBtn    = document.getElementById("modal-symbol-btn");
   const symSearch = document.querySelector(".modal-symbol-ctr");
+  const searchPrv = document.getElementById("tex-preview");
   handleEditorInput(editor, output);
   setExampleText(editor, output);
+  setSearchPreviewText(searchPrv);
   listenModalClose(modal);
   listenSearchClick(symSearch);
   listenSymbolModalOpen(symBtn, modal);
