@@ -87,7 +87,7 @@ function listenSymbolModalOpen(btn:    HTMLElement | null,
         const res = await fetch("http://localhost:9001/api/symbols-table");
         const data: StaticArray<string, 3> = await res.json();
         s.symbolTable = cleanSymbols(data);
-        s.symbolTable = collectSymbols(s.symbolTable, 374, 25);
+        s.symbolTable = collectSymbols(s.symbolTable, 0, 997);
         console.assert(s.symbolTable !== null, "Failed to update session.");
       }
       renderEntries(s.symbolTable);
