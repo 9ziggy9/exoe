@@ -9,11 +9,23 @@ interface Session {
 };
 
 // TODO: Should push this to JSON file eventually.
+// Also probably a good idea into looking to the following error:
+
+    /* LaTeX-incompatible input and strict mode is set to 'warn':
+        HTML extension is disabled on strict mode [htmlExtension] */
+
+// I am adding tests for "Must" and "Requires" in the comment string
+// until further notice. Still best that I simply output this to
+// a json file and go from there.
+
 const verbotenSymbol: (cmt: string, ex: string) => boolean = (cmt, ex) =>
      cmt === "Not supported"
-  || ex  === "Deprecated"
+  || ex.includes("Must")
+  || ex.includes("Requires")
+  || ex.includes("Deprecated")
   || ex.startsWith("Issue");
 
+// includes methods above are making filter step O(n^2)
 const cleanSymbols: (d: StaticArray<string, 3>) => SymbolTable
   = (d) => d.filter(([sym, cmt, ex]) => !verbotenSymbol(cmt, ex))
             .map(([sym, cmt, ex]) => [sym,ex]);
