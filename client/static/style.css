@@ -274,7 +274,7 @@ textarea:focus {
 }
 
 #symbol-table {width: 100%;}
-#symbol-table tr {font-size: 0.825rem; background-color: var(--my-lighter-gray);}
+#symbol-table tr {font-size: 0.9rem; background-color: var(--my-lighter-gray);}
 #symbol-table td {width: 30%; font-family: 'Source Code Pro', monospace;}
 #symbol-table td:nth-child(even) {width: 70%;}
 #symbol-table tr:nth-child(odd) {background-color: var(--my-dark-gray);}

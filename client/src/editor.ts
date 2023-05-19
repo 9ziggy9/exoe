@@ -5,8 +5,10 @@ type SymbolEntry = StaticArray<string, 2>;
 type SymbolTable = SymbolEntry[] | null;
 
 interface Session {
-  symbolTable: SymbolTable;
-  previewTableBuffer: SymbolTable;
+  symbolTable: SymbolTable;        // Total list of symbols
+  symbolTableIdx: number;          // Current location in list
+  symbolTableChunkSize: number;    // Size to read in
+  previewTableBuffer: SymbolTable; // Current view
 };
 
 // TODO: Should push this to JSON file eventually.
@@ -93,11 +95,12 @@ function listenSymbolModalOpen(btn:    HTMLElement | null,
         // TODO: PAGINATION--trying to load all symbols at once
         // causes an enormous CSS recalculation which significantly
         // slows down the application.
-        s.previewTableBuffer = collectSymbols(s.symbolTable, 25, 25);
-
+        s.previewTableBuffer = collectSymbols(s.symbolTable,
+                                              s.symbolTableIdx,
+                                              s.symbolTableChunkSize);
+        renderEntries(s.previewTableBuffer);
         console.assert(s.symbolTable !== null, "Failed to update session.");
       }
-      renderEntries(s.previewTableBuffer);
     });
 }
 
@@ -114,6 +117,18 @@ const listenSearchClick: (element: Element | null) => void
     if (!el) throw new Error("Search area node is NULL");
     el.addEventListener("click", (e) => e.stopPropagation());
   };
+
+function listenSearchTableScroll(table: HTMLElement | null, s: Session): void
+{
+  if (!table || !s) throw new Error("NULL\: null args in scroll listener.");
+  table.addEventListener("scroll", () => {
+    // DOWN CASE
+    if (table.scrollTop + table.clientHeight >= table.scrollHeight) {
+      console.log("Hit the bottom.");
+      table.scrollTop = 0; // force to top
+    }
+  });
+}
 /* END LISTENERS */
 
 
@@ -162,19 +177,27 @@ function setSearchPreviewText(winId: HTMLElement | null): void {
 }
 
 function main(): void {
-  const session: Session = {symbolTable: null, previewTableBuffer: null};
+  const session: Session = {
+    symbolTable: null,
+    symbolTableIdx: 0,
+    symbolTableChunkSize: 50,
+    previewTableBuffer: null,
+  };
   const editor    = document.getElementById("text-editor");
   const output    = document.getElementById("text-output");
   const modal     = document.querySelector(".modal-overlay");
   const symBtn    = document.getElementById("modal-symbol-btn");
   const searchSym = document.querySelector(".modal-symbol-ctr");
   const searchPrv = document.getElementById("tex-preview");
+  const searchTbl = document.getElementById("table-container");
   handleEditorInput(editor, output);
   setExampleText(editor, output);
   setSearchPreviewText(searchPrv);
   listenModalClose(modal);
   listenSearchClick(searchSym);
   listenSymbolModalOpen(symBtn, modal, session);
+  listenSearchTableScroll(searchTbl, session);
 }
+
 
 document.addEventListener("DOMContentLoaded", main);
