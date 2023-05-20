@@ -261,6 +261,7 @@ textarea:focus {
     border: 2px solid var(--my-black);
     width: 100%;
     display: flex; justify-content:center;
+    align-items: center;
 }
 
 #table-header-sym { min-width: 30% }

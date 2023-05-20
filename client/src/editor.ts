@@ -47,6 +47,14 @@ function renderTeXPreview(p: HTMLElement | null, tex: string | null): void {
   });
 }
 
+function nextPreviewTableChunk(s: Session): void {
+  // Adding a slight padding of 10
+  s.symbolTableIdx += s.symbolTableChunkSize - 10;
+  s.previewTableBuffer = collectSymbols(s.symbolTable,
+                                        s.symbolTableIdx,
+                                        s.symbolTableChunkSize);
+}
+
 function renderEntries(t: SymbolTable): void {
   console.assert(t !== null, "Why is session symbolTable empty?");
 
@@ -58,6 +66,9 @@ function renderEntries(t: SymbolTable): void {
 
   if (!preview || !tBody) throw new Error("NULL\: check renderSymbols()");
   if (!t) throw new Error("NULL\: session SymbolTable has not been read.");
+
+  tBody.innerHTML = ""; // clear previous buffer
+
   for (let [sym, ex] of t) {
     const newRow  = document.createElement("tr");
     const symData = document.createElement("td");
@@ -66,11 +77,10 @@ function renderEntries(t: SymbolTable): void {
     exData.textContent  = ex.length ? ex : sym;
     newRow.appendChild(symData);
     newRow.appendChild(exData);
-
-    /* Pagination should make this okay, but many event listeners
-       could potentially become problematic. */
-    newRow.addEventListener("mouseover",
-                        () => renderTeXPreview(preview, exData.textContent));
+    newRow.addEventListener("mouseover", () => renderTeXPreview(
+      preview,
+      exData.textContent
+    ));
 
     tBody.appendChild(newRow);
   }
@@ -85,16 +95,10 @@ function listenSymbolModalOpen(btn:    HTMLElement | null,
     btn.addEventListener("click", async () => {
       modal.classList.toggle("hidden");
       if (!s.symbolTable) {
-        console.log("Fetching symbol table...");
-
         // TODO: HARDCODED BACKEND URI, PLEASE FIX ASAP
         const res = await fetch("http://localhost:9001/api/symbols-table");
         const data: StaticArray<string, 3> = await res.json();
         s.symbolTable = cleanSymbols(data);
-
-        // TODO: PAGINATION--trying to load all symbols at once
-        // causes an enormous CSS recalculation which significantly
-        // slows down the application.
         s.previewTableBuffer = collectSymbols(s.symbolTable,
                                               s.symbolTableIdx,
                                               s.symbolTableChunkSize);
@@ -124,7 +128,9 @@ function listenSearchTableScroll(table: HTMLElement | null, s: Session): void
   table.addEventListener("scroll", () => {
     // DOWN CASE
     if (table.scrollTop + table.clientHeight >= table.scrollHeight) {
-      console.log("Hit the bottom.");
+      // TODO: resolve over the list bug
+      nextPreviewTableChunk(s);
+      renderEntries(s.previewTableBuffer);
       table.scrollTop = 0; // force to top
     }
   });
@@ -180,7 +186,7 @@ function main(): void {
   const session: Session = {
     symbolTable: null,
     symbolTableIdx: 0,
-    symbolTableChunkSize: 50,
+    symbolTableChunkSize: 100,
     previewTableBuffer: null,
   };
   const editor    = document.getElementById("text-editor");
